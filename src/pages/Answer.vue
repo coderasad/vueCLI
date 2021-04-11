@@ -7,7 +7,6 @@
             <div><a class="btn btn-outline-secondary mb-3" @click.prevent="$parent.show = true">Back</a></div>
             <h4>{{ questions.question_title }}<span class="badge bg-primary ms-2"> {{ questions.category ? questions.category.categroy_name : '' }} </span></h4>
             <p>{{ questions.question_description }} </p>
-
             <div>
               <h5 class="bg-secondary p-2 text-light">Answers</h5>
               <div class="form-answer">

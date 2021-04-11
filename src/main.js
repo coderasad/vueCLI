@@ -2,7 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './assets/scss/main.scss'
-import axios from "axios";
+import './axios'
+import axios from "axios"
+
 
 Vue.prototype.$axios = axios
 

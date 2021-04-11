@@ -3,11 +3,12 @@
     <div class="container mb-5 pb-5">
       <div class="row">
         <div class="col-12">
+
           <nav class="fixed-top navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-              <a class="navbar-brand" href="">
+              <router-link class="navbar-brand" to="/">
                 Laravel
-              </a>
+              </router-link >
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -17,12 +18,23 @@
 
                 </ul>
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto" v-if="!user">
                   <li class="nav-item">
-                    <a class="nav-link" href="" @click.prevent="login()">Login</a>
+                    <router-link class="nav-link" to="/login" >Login</router-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">Register</a>
+                    <router-link class="nav-link" to="/register">Register</router-link>
+                  </li>
+                </ul>
+                <ul class="navbar-nav ms-auto" v-if="user">
+                  <li class='nav-item dropdown show' @click="isActive = !isActive">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ user.user.name }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" :class="{ show: isActive }" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="" @click.prevent="logout()">
+                        Logout
+                      </a>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -37,19 +49,27 @@
 <script>
   export default {
     name: "Menu",
+    props:['user'],
     data () {
       return {
-        loginShow:false
+        isActive: false
       }
     },
     methods:{
-      login(){
-
+      logout(){
+        localStorage.removeItem('user');
+        this.$router.push('/')
       }
+    },
+    mounted () {
+
     }
   }
 </script>
 
 <style>
+  .dropdown-menu.dropdown-menu-right {
+    right: 20px;
+  }
 
 </style>
