@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Menu :user="user" />
+    <Menu :loginUser="loginUser"/>
     <router-view :user="user" />
   </div>
 </template>
@@ -16,15 +16,16 @@ export default {
   },
   data(){
     return{
-      user: null,
+      user : {}
     }
   },
-  mounted() {
-    this.user = (JSON.parse(localStorage.getItem('user')));
-  }
+
+  computed:{
+    loginUser(){
+      return JSON.parse(localStorage.getItem('user'));
+    }
+
+  },
+
 }
 </script>
-
-<style >
-
-</style>

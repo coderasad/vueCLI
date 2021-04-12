@@ -60,25 +60,22 @@
         });
         this.userData = response.data.message;
 
+
+
         if(!this.userData){
+          this.$hub.$emit("afterLogin", true);
           localStorage.setItem('user', JSON.stringify(response.data))
-          await this.$router.push('/');
+          this.$router.push('/');
+
         }else{
           this.show = true
-          await this.$router.push('/login')
+          this.$router.push('/login')
         }
       }
 
-    }
+    },
+
+
   }
 </script>
 
-<style>
-  .alert-ar {
-    position: fixed !important;
-    bottom: 0;
-    right: 0;
-    z-index: 9999;
-    width: fit-content !important;
-  }
-</style>

@@ -6,7 +6,9 @@
           <div class="card card-body mb-3" v-for="(question,index) in questions" :key="index">
               <h4>{{ question.question_title}}
                 <span class="badge bg-secondary ms-2">{{ question.category.categroy_name }}</span>
-                <button class="badge bg-secondary btn ms-2"><i class="fa fa-thumbs-up me-2"></i><span>{{ question.like_count }}</span></button>
+                <button class="badge bg-secondary btn ms-2" @click="handleLike(question.id)">
+                  <i class="fa fa-thumbs-up me-2"></i><span>{{ question.like_count }}</span>
+                </button>
               </h4>
               <p>{{ question.question_description }}</p>
               <div>
@@ -34,7 +36,7 @@
         show : true,
         activeQuestionId : '',
         questions: [],
-        likeCount: 0
+        likeCount: 0,
       }
     },
     methods:{
@@ -42,14 +44,19 @@
         this.show = false;
         this.activeQuestionId = id;
       },
+      handleLike(questionId){
+        console.log(this.user)
+        if(this.user){
+          this.$axios.post(`/like-store/${this.user.user.id}/${questionId}` )
+                    .then(response => ((this.likeCount = response.data)))
+        }else{
+          this.$router.push('/login');
+        }
+      }
     },
     mounted () {
-      this.$axios.get('http://127.0.0.1:8000/api/question')
+      this.$axios.get('/question')
               .then(response => (this.questions = response.data));
     }
   }
 </script>
-
-<style>
-
-</style>

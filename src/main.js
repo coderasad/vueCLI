@@ -10,6 +10,8 @@ Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false
 
+Vue.prototype.$hub = new Vue();
+
 new Vue({
   router,
   render: h => h(App)
