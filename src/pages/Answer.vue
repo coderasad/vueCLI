@@ -10,7 +10,7 @@
             <div>
               <h5 class="bg-secondary p-2 text-light">Answers</h5>
               <div class="form-answer">
-                <form>
+                <form method="post" @submit.prevent="handlerSubmit">
                   <textarea type="text" name="answer" placeholder="Write a Answer..." class="form-control"></textarea>
                   <input type="hidden" name="question_id" value="">
                   <button class="btn btn-success mt-2">Submit</button>
@@ -24,7 +24,7 @@
                   <div class="col-10">
                     <div class="card card-body mb-4">
                       <h5 class="text-capitalize text-primary">Author Name : {{ answer.user.name }}</h5>
-                      <span class="mb-3 text-secondary"> time</span>
+                      <span class="mb-3 text-secondary"> {{ answer.user.created_at }}</span>
                       <p>{{ answer.answer}}1</p>
                     </div>
                   </div>
@@ -51,6 +51,11 @@
       this.$axios.get('http://127.0.0.1:8000/api/question/'+this.id)
           .then(response => (this.questions = response.data))
     },
+    methods:{
+      handlerSubmit(){
+        console.log("login", this.$loginUser.access_token);
+      }
+    }
   }
 </script>
 

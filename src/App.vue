@@ -1,31 +1,16 @@
 <template>
-  <div id="app">
-    <Menu :loginUser="loginUser"/>
-    <router-view :user="user" />
-  </div>
+  <component v-bind:is="layoutName"></component>
 </template>
 
 <script>
-
-import Menu from "./pages/Menu";
-
-export default {
-  name: 'App',
-  components: {
-    Menu
-  },
-  data(){
-    return{
-      user : {}
+  export default{
+    computed:{
+      layoutName(){
+        if (this.$route.meta.length > 0) {
+          return this.$route.meta;
+        }
+        return 'main-layout';
+      }
     }
-  },
-
-  computed:{
-    loginUser(){
-      return JSON.parse(localStorage.getItem('user'));
-    }
-
-  },
-
-}
+  }
 </script>

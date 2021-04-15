@@ -27,7 +27,6 @@
 
   export default {
     name: "Home",
-    props: ['user'],
     components: {
       Answer
     },
@@ -36,7 +35,7 @@
         show : true,
         activeQuestionId : '',
         questions: [],
-        likeCount: 0,
+        likeCount: 0
       }
     },
     methods:{
@@ -44,19 +43,21 @@
         this.show = false;
         this.activeQuestionId = id;
       },
+
       handleLike(questionId){
-        console.log(this.user)
-        if(this.user){
-          this.$axios.post(`/like-store/${this.user.user.id}/${questionId}` )
-                    .then(response => ((this.likeCount = response.data)))
+        if(this.loginUserData){
+          this.$axios.post(`/like-store/${this.loginUserData.user.id}/${questionId}` )
+                    .then(response => (this.questions = response.data))
         }else{
           this.$router.push('/login');
         }
       }
     },
     mounted () {
+      this.loginUserData = this.$loginUser;
+
       this.$axios.get('/question')
-              .then(response => (this.questions = response.data));
+          .then(response => (this.questions = response.data));
     }
   }
 </script>

@@ -10,7 +10,13 @@ Vue.prototype.$axios = axios
 
 Vue.config.productionTip = false
 
-Vue.prototype.$hub = new Vue();
+if(localStorage.getItem('user')){
+  Vue.prototype.$loginUser=JSON.parse(localStorage.getItem('user'));
+}else {
+  Vue.prototype.$loginUser = {};
+}
+  Vue.component('main-layout', require('./MainLayout.vue').default);
+  Vue.component('login', require('./pages/Login').default);
 
 new Vue({
   router,
